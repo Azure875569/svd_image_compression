@@ -1,60 +1,60 @@
-# SVD Image Compression
+# SVD 影像壓縮
 
-An interactive image compression demo using Singular Value Decomposition (SVD), built with OpenCV and NumPy.
+使用奇異值分解（SVD）實作的互動式影像壓縮展示，以 OpenCV 與 NumPy 建構。
 
-## Demo
+## 展示效果
 
-Adjust the **k value** slider to control the number of singular values used for reconstruction. A lower k means higher compression; a higher k means better image quality.
+調整 **k 值**滑桿來控制重建時使用的奇異值數量。k 越小，壓縮率越高；k 越大，影像品質越好。
 
-The window displays the original and compressed images side by side, along with real-time metrics:
-- **MSE** (Mean Squared Error)
-- **PSNR** (Peak Signal-to-Noise Ratio)
-- **Compression ratio**
+視窗會並排顯示原始影像與壓縮影像，並即時顯示以下指標：
+- **MSE**（均方誤差）
+- **PSNR**（峰值信噪比）
+- **壓縮比**
 
-## How It Works
+## 原理
 
-Each color channel (B, G, R) of the image is decomposed using SVD:
+對影像的每個色彩通道（B、G、R）分別進行 SVD 分解：
 
 $$A = U \Sigma V^T$$
 
-The image is then approximated using only the top **k** singular values:
+接著只取前 **k** 個奇異值來近似重建影像：
 
 $$A_k = U_{:,1:k} \cdot \Sigma_{1:k} \cdot V^T_{1:k,:}$$
 
-A smaller k retains less information but requires less storage. The compressed data size is calculated as:
+k 越小，保留的資訊越少，但所需儲存空間也越小。壓縮後的資料量計算方式為：
 
 $$k \times (H + W + 1) \times C$$
 
-where H, W, C are the image height, width, and number of channels.
+其中 H、W、C 分別為影像的高度、寬度與色彩通道數。
 
-## Requirements
+## 安裝需求
 
 ```
 opencv-python
 numpy
 ```
 
-Install with:
+使用以下指令安裝：
 
 ```bash
 pip install opencv-python numpy
 ```
 
-## Usage
+## 使用方式
 
-1. Place your image in the same directory and rename it to `images.jpg`
-2. Run the script:
+1. 將欲壓縮的影像放至同一目錄下，並命名為 `images.jpg`
+2. 執行程式：
 
 ```bash
 python svd_compression.py
 ```
 
-3. Move the trackbar to adjust the k value
-4. Press **Q** or **Esc** to exit
+3. 拖曳滑桿調整 k 值
+4. 按 **Q** 或 **Esc** 關閉視窗
 
-## Controls
+## 操作說明
 
-| Key | Action |
-|-----|--------|
-| Trackbar | Adjust k value (1 ~ min(H, W)) |
-| Q / Esc | Close the window |
+| 操作 | 功能 |
+|------|------|
+| 滑桿 | 調整 k 值（範圍：1 ～ min(H, W)） |
+| Q / Esc | 關閉視窗 |
